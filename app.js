@@ -6,18 +6,24 @@
 
 	function refreshTodoItems() {
 
-		// var query = todoItemTable;
-		var query = todoItemTable.where({
-			complete: false
-		});
+		var query = todoItemTable;
+		// var query = todoItemTable.where({
+		// 	complete: false
+		// });
 
 		query.read().then(function(todoItems) {
 			listItems = $.map(todoItems, function(item) {
-				return $('<li>')
+				var li = $('<li>')
 					.attr('data-todoitem-id', item.id)
 					.append($('<button class="item-delete">Delete</button>'))
 					.append($('<input type="checkbox" class="item-complete">').prop('checked', item.complete))
 					.append($('<div>').append($('<input class="item-text">').val(item.text)));
+
+				if( item.complete ) {
+					li.addClass( 'complete' );
+				}
+
+				return li;
 			});
 
 			$('#todo-items').empty().append(listItems).toggle(listItems.length > 0);
