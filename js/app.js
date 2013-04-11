@@ -34,7 +34,9 @@
 	}
 
 	function updateItemsCount() {
-		var count = $('#todo-items li').size();
+		var items = $('#todo-items');
+		var count = items.find( 'li' ).size();
+		items.toggle(count > 0);
 		$('#summary').html('<strong>' + count + '</strong> item(s)');
 	}
 
